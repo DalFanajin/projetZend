@@ -18,8 +18,12 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	$adapter = $this->getServiceLocator()->get('db');
-    	//Debug::dump($adapter);
-    	$sql = 'INSERT INTO TESTZEND VALUES ("CA FONCTIONNE BIEEEEN",":D");';
+    	
+//     	$sql = 'INSERT INTO communaute VALUES (0,"BGClub","Pour tous les beaux gosses du Zend");';
+//     	$statement = $adapter->createStatement($sql);
+//     	$result = $statement->execute();
+//     	Debug::dump($result);
+    	$sql = 'INSERT INTO membre VALUES (0,"l.dantoni@free.fr","leo","leo","DANTONI","leo",\'1993-01-14\',1);';
     	$statement = $adapter->createStatement($sql);
     	$result = $statement->execute();
     	
