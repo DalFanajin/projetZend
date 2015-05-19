@@ -18,13 +18,10 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	$adapter = $this->getServiceLocator()->get('db');
-    	Debug::dump($adapter);
-    	$sql = 'INSERT INTO TEST VALUES (2,3);';
+    	//Debug::dump($adapter);
+    	$sql = 'INSERT INTO TESTZEND VALUES ("CA FONCTIONNE BIEEEEN",":D");';
     	$statement = $adapter->createStatement($sql);
     	$result = $statement->execute();
-//     	$this->getServiceLocator()->get('db');
-//     	Debug::dump($this->getServiceLocator()->get('db'));
-//     	$this->dbAdapter->query('INSERT INTO TEST VALUES (2,3);');
     	
         return new ViewModel();
     }
