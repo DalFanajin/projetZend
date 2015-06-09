@@ -6,6 +6,7 @@ return array(
 						'Application\Controller\RestfulController' => 'Application\Controller\RestfulController',
 						'Application\Controller\CategorieController' => 'Application\Controller\CategorieController',
 						'Application\Controller\RestfulClientController' => 'Application\Controller\RestfulClientController',
+						'Application\Controller\AuthController' => 'Application\Controller\AuthController',
 				),
 		),
 		'router' => array(
@@ -61,6 +62,35 @@ return array(
 														'defaults' => array(
 																'controller' => 'CategorieController',
 																'action'     => 'get'
+														),
+						
+						
+												),
+										),
+								),
+						),
+						'auth' => array(
+								'type'    => 'Literal',
+								'options' => array(
+										// Change this to something specific to your module
+										'route'    => '/auth',
+										'defaults' => array(
+												// Change this value to reflect the namespace in which
+												// the controllers for your module are found
+												'__NAMESPACE__' => 'Application\Controller',
+												'controller'    => 'AuthController',
+										),
+								),
+									
+								'may_terminate' => true,
+								'child_routes' => array(
+										'client' => array(
+												'type'    => 'Segment',
+												'options' => array(
+														'route'    => '[/:action]',
+														'defaults' => array(
+																'controller' => 'AuthController',
+																'action'     => 'iCanCall'
 														),
 						
 						
