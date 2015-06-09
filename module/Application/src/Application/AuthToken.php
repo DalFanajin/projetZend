@@ -13,8 +13,8 @@ class  AuthToken{
 	private static function initialisation(){
 		//var_dump(AuthToken::$auth);
 		AuthToken::$session = new Container();
-		var_dump(AuthToken::$auth);
-		if(AuthToken::$session->offsetExists('tabTokens')) {
+		var_dump(AuthToken::$session->offsetExists('tabTokens'));
+		if(!AuthToken::$session->offsetExists('tabTokens')) {
 			AuthToken::$session->offsetSet('tabTokens', array());
 		}
 		else AuthToken::$auth = AuthToken::$session->offsetGet('tabTokens');
