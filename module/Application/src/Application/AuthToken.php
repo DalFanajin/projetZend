@@ -11,9 +11,7 @@ class  AuthToken{
 	 static $session;
 	
 	private static function initialisation(){
-		//var_dump(AuthToken::$auth);
 		AuthToken::$session = new Container();
-		var_dump(AuthToken::$session->offsetExists('tabTokens'));
 		if(!AuthToken::$session->offsetExists('tabTokens')) {
 			AuthToken::$session->offsetSet('tabTokens', array());
 		}
@@ -26,16 +24,16 @@ class  AuthToken{
 		AuthToken::initialisation();
 		if(AuthToken::verifUser($username, $password))
 		{
-			//var_dump(AuthToken::$auth);
+			
 			$tok = AuthToken::generateToken();
 			$user = AuthToken::getID($username, $password);
 			
 			if(!isset(AuthToken::$auth->authentication[$user]))
 			{
 				AuthToken::$auth->authentication[$user] = $tok;
-				var_dump(AuthToken::$auth->authentication);
 			}
 			AuthToken::$session->offsetSet('tabTokens', AuthToken::$auth);
+			var_dump(AuthToken::$auth->authentication);
 			return(AuthToken::$auth->authentication[$user]);
 		}
 		else return('Pas de token enculé');
