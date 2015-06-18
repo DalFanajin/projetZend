@@ -3,12 +3,23 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 
 use Zend\Debug;
-use Application\AuthToken;
+use Application\Model\AuthToken;
 use Zend\Http;
 
+use Application\Model\FormatJson;
 class AuthController extends AbstractRestfulController
 {
+	public function getAction()
+	{
+		if(AuthToken::verifToken( $this->request->getHeaders('Authorization')->getFieldValue()) == FormatJson::$ok)
+		{
+			echo(AuthToken::withId($this->request->getHeaders('Authorization')->getFieldValue()));
+			exit;
+		}
+		echo FormatJson::$erreur;
+		exit;
 	
+	}
 	
 	public function iCanCallAction()
 	{

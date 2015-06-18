@@ -3,10 +3,11 @@
 return array(
 		'controllers' => array(
 				'invokables' => array(
-						'Application\Controller\RestfulController' => 'Application\Controller\RestfulController',
-						'Application\Controller\CategorieController' => 'Application\Controller\CategorieController',
-						'Application\Controller\RestfulClientController' => 'Application\Controller\RestfulClientController',
+						'Application\Controller\IdeeController' => 'Application\Controller\IdeeController',
+						'Application\Controller\CommunauteController' => 'Application\Controller\CommunauteController',
 						'Application\Controller\AuthController' => 'Application\Controller\AuthController',
+						'Application\Controller\DomaineController' => 'Application\Controller\DomaineController',
+						'Application\Controller\CommentaireController' => 'Application\Controller\CommentaireController',
 				),
 		),
 		'router' => array(
@@ -15,12 +16,12 @@ return array(
 								'type'    => 'Literal',
 								'options' => array(
 										// Change this to something specific to your module
-										'route'    => '/idees',
+										'route'    => '/idee',
 										'defaults' => array(
 												// Change this value to reflect the namespace in which
 												// the controllers for your module are found
 												'__NAMESPACE__' => 'Application\Controller',
-												'controller'    => 'RestfulController',
+												'controller'    => 'IdeeController',
 										),
 								),
 								 
@@ -31,7 +32,7 @@ return array(
 												'options' => array(
 														'route'    => '[/:action][/:id]',
 														'defaults' => array(
-																'controller' => 'RestfulController',
+																'controller' => 'IdeeController',
 																'action'     => 'get'
 														),
 														
@@ -40,16 +41,16 @@ return array(
 										),
 								),
 						),
-						'Categorie' => array(
+						'Communaute' => array(
 								'type'    => 'Literal',
 								'options' => array(
 										// Change this to something specific to your module
-										'route'    => '/categories',
+										'route'    => '/communaute',
 										'defaults' => array(
 												// Change this value to reflect the namespace in which
 												// the controllers for your module are found
 												'__NAMESPACE__' => 'Application\Controller',
-												'controller'    => 'CategorieController',
+												'controller'    => 'CommunauteController',
 										),
 								),
 									
@@ -60,7 +61,7 @@ return array(
 												'options' => array(
 														'route'    => '[/:action][/:id]',
 														'defaults' => array(
-																'controller' => 'CategorieController',
+																'controller' => 'CommunauteController',
 																'action'     => 'get'
 														),
 						
@@ -69,7 +70,7 @@ return array(
 										),
 								),
 						),
-						'auth' => array(
+						'Auth' => array(
 								'type'    => 'Literal',
 								'options' => array(
 										// Change this to something specific to your module
@@ -91,6 +92,64 @@ return array(
 														'defaults' => array(
 																'controller' => 'AuthController',
 																'action'     => 'iCanCall'
+														),
+						
+						
+												),
+										),
+								),
+						),
+						'Commentaire' => array(
+								'type'    => 'Literal',
+								'options' => array(
+										// Change this to something specific to your module
+										'route'    => '/commentaire',
+										'defaults' => array(
+												// Change this value to reflect the namespace in which
+												// the controllers for your module are found
+												'__NAMESPACE__' => 'Application\Controller',
+												'controller'    => 'CommentaireController',
+										),
+								),
+									
+								'may_terminate' => true,
+								'child_routes' => array(
+										'client' => array(
+												'type'    => 'Segment',
+												'options' => array(
+														'route'    => '[/:action][/:id]',
+														'defaults' => array(
+																'controller' => 'CommentaireController',
+																'action'     => 'get'
+														),
+						
+						
+												),
+										),
+								),
+						),
+						'Domaine' => array(
+								'type'    => 'Literal',
+								'options' => array(
+										// Change this to something specific to your module
+										'route'    => '/domaine',
+										'defaults' => array(
+												// Change this value to reflect the namespace in which
+												// the controllers for your module are found
+												'__NAMESPACE__' => 'Application\Controller',
+												'controller'    => 'DomaineController',
+										),
+								),
+									
+								'may_terminate' => true,
+								'child_routes' => array(
+										'client' => array(
+												'type'    => 'Segment',
+												'options' => array(
+														'route'    => '[/:action][/:id]',
+														'defaults' => array(
+																'controller' => 'DomaineController',
+																'action'     => 'get'
 														),
 						
 						

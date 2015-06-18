@@ -1,5 +1,5 @@
 <?php
-namespace Application;
+namespace Application\Model;
 use Zend\Db\Adapter\Adapter;
 
 class BD{

@@ -1,15 +1,38 @@
 <?php
-namespace Application;
+namespace Application\Model;
 use Zend\Session\Container;
 use Zend\ServiceManager\ServiceManager;
-use Application\BD;
+use Application\Model\BD;
 use Zend\Debug;
 use ZendSessionContainer;
 
 class  AuthToken{
 	static $auth;
 	 static $session;
-	
+	 
+	 public static function withId($tok)
+	 {
+	 	AuthToken::initialisation();
+	 	$adapter = BD::getAdapter();
+	 	$sql = "SELECT * FROM MEMBRE WHERE id=".array_search($tok,AuthToken::$auth).";";
+	 
+	 	$statement = $adapter->createStatement($sql);
+	 	$resultPDO = $statement->execute();
+	 	$JsonResult= json_encode($resultPDO->next());
+	 	return($JsonResult);
+	 }
+	 
+	 public static  function verifToken($tok)
+	 {
+	 	AuthToken::initialisation();
+	 	if(!in_array($tok,AuthToken::$auth))
+	 	{
+	 		echo(FormatJson::$erreur);
+	 		exit;
+	 	}
+	 	return FormatJson::$ok;
+	 }
+	 
 	private static function initialisation(){
 		AuthToken::$session = new Container();
 		if(!AuthToken::$session->offsetExists('tabTokens')) {
@@ -28,13 +51,13 @@ class  AuthToken{
 			$tok = AuthToken::generateToken();
 			$user = AuthToken::getID($username, $password);
 			
-			if(!isset(AuthToken::$auth->authentication[$user]))
+			if(!isset(AuthToken::$auth[$user]))
 			{
-				AuthToken::$auth->authentication[$user] = $tok;
+				AuthToken::$auth[$user] = $tok;
 			}
 			AuthToken::$session->offsetSet('tabTokens', AuthToken::$auth);
-			var_dump(AuthToken::$auth->authentication);
-			return(AuthToken::$auth->authentication[$user]);
+			var_dump(AuthToken::$auth);
+			return(AuthToken::$auth[$user]);
 		}
 		else return('Pas de token enculé');
 	}
